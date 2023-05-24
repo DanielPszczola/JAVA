@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: pl.pjatk.movieService.MovieServiceApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.274 s - in pl.pjatk.movieService.MovieServiceApplicationTests
