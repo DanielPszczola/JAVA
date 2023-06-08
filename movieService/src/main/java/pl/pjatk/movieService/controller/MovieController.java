@@ -40,6 +40,14 @@ public class MovieController {
         }
         return ResponseEntity.ok(movie);
     }
+    @PutMapping("/movies/{id}/unavailable")
+    public ResponseEntity<Movie> setMovieUnavailable(@PathVariable("id") long id) {
+        Movie movie = movieService.setMovieUnavailable(id);
+        if (movie == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(movie);
+    }
     @PostMapping("/movies")
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie) {
         if (movie.getId() != 0) {

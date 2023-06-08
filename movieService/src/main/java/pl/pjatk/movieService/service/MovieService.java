@@ -28,6 +28,15 @@ public class MovieService {
         }
         return null;
     }
+    public Movie setMovieUnavailable(long id) {
+        Optional<Movie> currentMovie = movieRepository.findById(id);
+        if (currentMovie.isPresent()) {
+            Movie movie = currentMovie.get();
+            movie.setIsAvailable(false);
+            return movieRepository.save(movie);
+        }
+        return null;
+    }
     public Movie findById(long id) {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
