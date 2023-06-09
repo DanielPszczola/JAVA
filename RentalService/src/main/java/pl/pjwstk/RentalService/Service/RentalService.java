@@ -24,18 +24,15 @@ public class RentalService {
         try {
             final String uri = "http://localhost:8080/movieService/movies/" + id + "/available";
 
-            // Stworzenie encji z nagłówkami
             HttpHeaders headers = new HttpHeaders();
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
-            // Wymiana żądania i obsługa odpowiedzi
             ResponseEntity<String> response = restTemplate.exchange(
                     URI.create(uri),
                     HttpMethod.PUT,
                     entity,
                     String.class);
 
-            // Obsługa statusu odpowiedzi
             if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
                 return ResponseEntity.notFound().build();
             } else if (response.getStatusCode() == HttpStatus.BAD_REQUEST) {

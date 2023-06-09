@@ -71,9 +71,9 @@ public class MovieController {
     public ResponseEntity<Void> deleteMovie(@PathVariable int id) {
         boolean isDeleted = movieService.deleteMovie(id);
         if (isDeleted) {
-            return ResponseEntity.ok().build(); // 200 OK
+            return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.notFound().build(); // 404 Not Found
+            return ResponseEntity.notFound().build();
         }
     }
 }
