@@ -57,24 +57,33 @@ public class RentalService {
             HttpHeaders headers = new HttpHeaders();
             HttpEntity<String> entity = new HttpEntity<>(headers);
 
-            ResponseEntity<String> response = restTemplate.exchange(URI.create(uri), HttpMethod.PUT, entity, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(
+                    URI.create(uri),
+                    HttpMethod.PUT,
+                    entity,
+                    String.class
+            );
+            if (response.getStatusCode() != HttpStatus.OK) {
+                throw new HttpClientErrorException(response.getStatusCode());
+            }
 
             return ResponseEntity.ok().build();
+
         } catch (HttpClientErrorException | HttpServerErrorException e) {
-            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-                return ResponseEntity.notFound().build();
-            } else if (e.getStatusCode() == HttpStatus.BAD_REQUEST) {
-                return ResponseEntity.badRequest().build();
-            } else if (e.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
-                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) { // 404
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            } else if (e.getStatusCode() == HttpStatus.BAD_REQUEST) { // 400
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            } else if (e.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) { // 500
+                return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build(); // Zwraca 502
             } else {
-                throw e;
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         } catch (RestClientException e) {
             if (e.getCause() instanceof ConnectException) {
-                return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).build();
+                return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).build(); // Zwraca 504
             } else {
-                throw e;
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
     }
