@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import pl.pjwstk.RentalService.Service.RentalService;
 
 @RestController
-@RequestMapping("/rentalService")
+@RequestMapping(path = "/rentalService")
 public class RentalController {
     private final RentalService rentalService;
 
@@ -15,17 +15,17 @@ public class RentalController {
         this.rentalService = rentalService;
     }
 
-    @GetMapping("/movies/{id}")
+    @GetMapping(path = "/movies/{id}")
     public ResponseEntity<Movie> getMovie(@PathVariable Long id){
         return ResponseEntity.ok(rentalService.getMovie(id));
     }
 
-    @PutMapping("/movies/{id}/return")
+    @PutMapping(path = "/movies/{id}/return")
     public ResponseEntity<Void> returnMovie(@PathVariable Long id) {
         return rentalService.returnMovie(id);
     }
 
-    @PutMapping("/movies/{id}/rent")
+    @PutMapping(path = "/movies/{id}/rent")
     public ResponseEntity<Void> rentMovie(@PathVariable Long id) {
         return rentalService.rentMovie(id);
     }

@@ -1,11 +1,16 @@
 package pl.pjwstk.RentalService.Model;
 
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Movie {
 
     private long id;
 
     private String name;
+    @NotNull
+    @NotBlank
     MovieCategory movieCategory;
 
     private boolean isAvailable;
