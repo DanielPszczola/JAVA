@@ -1,3 +1,5 @@
 http://localhost:8080/rate/USD?lastDays=2
 
 http://localhost:8080/swagger-ui.html
+
+https://start.spring.io
